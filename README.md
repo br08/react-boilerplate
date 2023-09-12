@@ -15,7 +15,8 @@
   
   ```sh
   $ cd react-boilerplate-project # change this to your actual project name
-  $ sh install.sh
+  $ chmod +x install.sh # give execution permission
+  $ ./install.sh # run the installer
   ```
   During the installation process you're going to be asked to choose between `yarn` and `npm` to be the package manager for your project.
 
