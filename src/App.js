@@ -1,11 +1,11 @@
-import React from "react"
+import React from 'react';
 
-const App = () =>{
+const App = () => {
   return (
     <h1>
-      Welcome to a React App built using Webpack and Babel separately!
+      Welcome to a React App without CRA!
     </h1>
   )
 }
 
-export default App
+export default App;
