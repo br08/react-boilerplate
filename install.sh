@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+INVALID="Invalid option!"
+
 replace_spc() { #replaces spaces for underscores
   str=$1
   echo "$str" | sed -r 's/[ ]+/_/g'
@@ -11,15 +13,15 @@ replace_uds() { # replaces underscores for spaces
 }
 
 use_yarn() {
-  pac_install="yarn add"
+  pak_install="yarn add"
 }
 
 use_npm() {
-  pac_install="npm i"
+  pak_install="npm i"
 }
 
-invalid_option() {
-  echo "Invalid option!"
+warn() {
+  echo $1
   exit 0
 }
 
@@ -30,39 +32,42 @@ y) yarn
 n) npm
 
 > "
-read pacman
+read pakman
 
-if [ -n "${pacman}" ]
+if [ -n "${pakman}" ]
 then
-  case $pacman in
+  case $pakman in
     y) use_yarn ;;
     n) use_npm ;;
-    *) invalid_option ;;
+    *) warn "$INVALID" ;;
   esac
 else
   echo "Using npm as the default option."
   use_npm
 fi
 
+echo ""
+
 # Essential packages
-webpack=$(replace_spc "webpack webpack-cli webpack-dev-server")
-babel=$(replace_spc "babel-loader @babel/core @babel/cli @babel/runtime @babel/plugin-transform-runtime @babel/preset-env @babel/preset-react")
-eslint=$(replace_spc "@babel/eslint-parser eslint path")
+webpack=$(replace_spc "webpack webpack-cli webpack-dev-server html-webpack-plugin")
+babel=$(replace_spc "@babel/core @babel/plugin-transform-runtime @babel/preset-env @babel/preset-react babel-loader")
 react=$(replace_spc "react react-dom")
 
-dev_dep=($webpack $babel $eslint)
+dev_dep=($webpack $babel)
 dep=($react)
 
-echo "Installing dev dependencies..."
-for pac in "${dev_dep[@]}"
+echo "Installing dependencies..."
+for pak in "${dep[@]}"
 do
-  eval "${pac_install} -D $(replace_uds $pac)"
+  eval "${pak_install} $(replace_uds $pak)"
+  echo ""
 done
 
-echo "Installing prod dependencies..."
-for pac in "${dep[@]}"
+echo "Installing dev dependencies..."
+for pak in "${dev_dep[@]}"
 do
-  eval "${pac_install} $(replace_uds $pac)"
+  eval "${pak_install} -D $(replace_uds $pak)"
+  echo ""
 done
 
 printf "Finished installing the packages!
