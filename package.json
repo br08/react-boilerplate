@@ -4,10 +4,8 @@
   "description": "A boilerplate project for creating a react app without CRA.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server .",
-    "build": "Webpack .",
-    "lint": "eslint src/*",
-    "lint:fix": "eslint src/* --fix"
+    "start": "webpack-dev-server ./src",
+    "build": "Webpack ./src"
   },
   "author": "Alonso Brayan Neves Mendonça",
   "license": "MIT"
