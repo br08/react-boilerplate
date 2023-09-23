@@ -1,20 +1,27 @@
+const prod = process.env.NODE_ENV === 'production';
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
-  devServer: {
-    port: 8080,
+  mode: prod ? 'production' : 'development',
+  entry: './src/index.js',
+  output: {
+    path: __dirname + '/dist/',
+    filename: 'bundle.js',
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html',
-    })
+      template: 'index.html',
+    }),
   ],
   module: {
     rules: [
       {
-        test: /\.m?js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
+        resolve: {
+          extensions: ['.js', '.jsx', '.json'],
+        },
         use: {
           loader: 'babel-loader',
           options: {
