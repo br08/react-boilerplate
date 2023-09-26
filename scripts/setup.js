@@ -20,9 +20,8 @@ const file = 'package.json';
 const packageJson = JSON.parse(fs.readFileSync(file));
 
 // Remove some default generated properties
-const [ scripts, keywords ] = packageJson;
-if (scripts) delete packageJson.scripts;
-if (keywords) delete packageJson.keywords;
+if (packageJson.scripts) delete packageJson.scripts;
+if (packageJson.keywords) delete packageJson.keywords;
 
 // Setup scripts
 const build = 'rm -rf dist && NODE_ENV=production webpack';
