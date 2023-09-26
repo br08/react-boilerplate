@@ -53,14 +53,14 @@ warn() {
   exit 0
 }
 
-printf "
+prompt="
 Which package manager would you like to use? (default \"n\")
 
 y) yarn
 n) npm
 
 > "
-read pakman
+read -p "$prompt" pakman
 
 if [ -n "${pakman}" ]
 then
@@ -85,14 +85,14 @@ typescript=$(replace_spc "typescript @types/react @types/react-dom ts-loader")
 dev_dep=($webpack)
 dep=($react)
 
-printf "
+prompt="
 Do you wish to use TypeScript? (default \"n\")
 
 y) yes
 n) no
 
 > "
-read with_typescript
+read -p "$prompt" with_typescript
 
 if [ -n "${with_typescript}" ]
 then
