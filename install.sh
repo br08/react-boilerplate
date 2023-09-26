@@ -4,7 +4,7 @@ INVALID_OPTION="Invalid option!"
 
 branch="main"
 
-root="https://raw.githubusercontent.com/br08/react-boilerplate-project/$branch"
+root="https://raw.githubusercontent.com/br08/react-boilerplate/$branch"
 scripts="${root}/scripts"
 templates="${root}/templates"
 tsconfig="tsconfig.json"
