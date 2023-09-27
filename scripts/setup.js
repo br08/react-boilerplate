@@ -8,10 +8,10 @@ const params = {};
 
 // Process the command-line arguments
 args.forEach((arg) => {
-    const [key, value] = arg.split('=');
-    if (key && value) {
-        params[key.replace('--', '')] = value;
-    }
+  const [key, value] = arg.split('=');
+  if (key && value) {
+    params[key.replace('--', '')] = value;
+  }
 });
 
 const file = 'package.json';
