@@ -168,16 +168,9 @@ set_packages() {
   dep=($react)
 }
 
-install_dependencies() {
-  packages=$1
-  for pak in "${packages[@]}"
-  do
-    eval "${install_cmd} $(replace_uds $pak)"
-    echo ""
-  done
-}
-
 setup() {
+  set_packages
+
   prompt_typescript
   prompt_pkg_name
   prompt_version
@@ -198,15 +191,21 @@ setup() {
     rm setup.js
   fi
 
-  set_packages
-
   echo "Installing dependencies..."
   echo ""
-  install_dependencies $dep
+  for pak in "${dep[@]}"
+  do
+    eval "${install_cmd} $(replace_uds $pak)"
+    echo ""
+  done
 
   echo "Installing dev dependencies..."
   echo ""
-  install_dependencies $dev_dep
+  for pak in "${dev_dep[@]}"
+  do
+    eval "${install_cmd} -D $(replace_uds $pak)"
+    echo ""
+  done
 
   echo "Finished installing the dependencies!"
   echo ""
