@@ -5,6 +5,8 @@ INVALID_OPTION="Invalid option!"
 DEFAULT_DIR=$(basename "$(pwd)")
 DEFAULT_VERSION="0.1"
 DEFAULT_LICENSE="MIT"
+ERROR=1
+SUCCESS=0
 
 ROOT="https://raw.githubusercontent.com/br08/react-boilerplate/main"
 SCRIPTS="$ROOT/scripts"
@@ -51,7 +53,7 @@ use_npm() {
 
 warn() {
   echo $1
-  exit 0
+  exit $2
 }
 
 choose_package_manager() {
@@ -69,7 +71,7 @@ n) npm
     case $pakman in
       y) use_yarn ;;
       n) use_npm ;;
-      *) warn "$INVALID_OPTION" ;;
+      *) warn "$INVALID_OPTION" "$ERROR" ;;
     esac
   else
     echo "Using npm as the default option."
@@ -146,7 +148,7 @@ n) no
     case $with_typescript in
       y) setup_for_typescript ;;
       n) setup_for_javascript ;;
-      *) warn "$INVALID_OPTION" ;;
+      *) warn "$INVALID_OPTION" "$ERROR" ;;
     esac
   else
     use_npm
