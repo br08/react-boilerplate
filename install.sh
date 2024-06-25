@@ -122,11 +122,11 @@ prompt_license() {
   fi
 }
 
-setup_for_javascript() {
+setup_javascript() {
   dev_dep+=($babel)
 }
 
-setup_for_typescript() {
+setup_typescript() {
   dev_dep+=($typescript)
   dir="typescript"
   ext="tsx"
@@ -146,8 +146,8 @@ n) no
   if [ -n "$with_typescript" ]
   then
     case $with_typescript in
-      y) setup_for_typescript ;;
-      n) setup_for_javascript ;;
+      y) setup_typescript ;;
+      n) setup_javascript ;;
       *) warn "$INVALID_OPTION" "$ERROR" ;;
     esac
   else
