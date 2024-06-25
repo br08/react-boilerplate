@@ -41,6 +41,31 @@ replace_uds() { # replaces underscores for spaces
   echo "$str" | sed -r 's/[_]+/ /g'
 }
 
+install_yarn() {
+  # Check if Yarn is installed globally
+  if [ ! -x "$(command -v yarn)" ]; then
+    not_installed="Yarn was not installed."
+    abort="Installation aborted."
+    prompt="
+Yarn is not installed!
+Do you wish to install Yarn right now? (y/n):
+
+> "
+    read -p "$prompt" choice
+    if [ -n "$choice" ]; then
+      case "$choice" in
+        [Yy])
+          npm install -g yarn
+          echo "Yarn has been installed successfully."
+          ;;
+        *) warn "$not_installed Exiting." "$SUCCESS" ;;
+      esac
+    else
+      warn "$abort Exiting." "$SUCCESS"
+    fi
+  fi
+}
+
 use_yarn() {
   pakman="yarn"
   install_cmd="yarn add"
@@ -69,7 +94,10 @@ n) npm
   if [ -n "$pakman" ]
   then
     case $pakman in
-      [Yy]) use_yarn ;;
+      [Yy])
+        install_yarn
+        use_yarn
+        ;;
       [Nn]) use_npm ;;
       *) warn "$INVALID_OPTION" "$ERROR" ;;
     esac
