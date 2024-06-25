@@ -69,8 +69,8 @@ n) npm
   if [ -n "$pakman" ]
   then
     case $pakman in
-      y) use_yarn ;;
-      n) use_npm ;;
+      [Yy]) use_yarn ;;
+      [Nn]) use_npm ;;
       *) warn "$INVALID_OPTION" "$ERROR" ;;
     esac
   else
@@ -146,8 +146,8 @@ n) no
   if [ -n "$with_typescript" ]
   then
     case $with_typescript in
-      y) setup_typescript ;;
-      n) setup_javascript ;;
+      [Yy]) setup_typescript ;;
+      [Nn]) setup_javascript ;;
       *) warn "$INVALID_OPTION" "$ERROR" ;;
     esac
   else
