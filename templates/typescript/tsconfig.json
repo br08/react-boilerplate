@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
+    "target": "esnext",
+    "lib": ["dom", "esnext"],
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
     "module": "esnext",
     "moduleResolution": "node",
-    "lib": ["dom", "esnext"],
-    "strict": true,
-    "target": "esnext",
+    "jsx": "react",
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"]
-    }
+    },
+    "strict": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["src"],
   "exclude": ["node_modules"]
