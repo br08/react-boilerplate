@@ -30,17 +30,6 @@ description=""
 author=""
 
 # Functions
-
-replace_spc() { #replaces spaces for underscores
-  str=$1
-  echo "$str" | sed -r 's/[ ]+/_/g'
-}
-
-replace_uds() { # replaces underscores for spaces
-  str=$1
-  echo "$str" | sed -r 's/[_]+/ /g'
-}
-
 install_yarn() {
   # Check if Yarn is installed globally
   if [ ! -x "$(command -v yarn)" ]; then
@@ -189,10 +178,10 @@ set_templates() {
 }
 
 set_packages() {
-  webpack=$(replace_spc "webpack webpack-cli webpack-dev-server html-webpack-plugin")
-  babel=$(replace_spc "@babel/core @babel/plugin-transform-runtime @babel/preset-env @babel/preset-react babel-loader")
-  react=$(replace_spc "react react-dom")
-  typescript=$(replace_spc "typescript @types/react @types/react-dom ts-loader")
+  webpack=("webpack webpack-cli webpack-dev-server html-webpack-plugin")
+  babel=("@babel/core @babel/plugin-transform-runtime @babel/preset-env @babel/preset-react babel-loader")
+  react=("react react-dom")
+  typescript=("typescript @types/react @types/react-dom ts-loader")
 
   dev_dep=($webpack)
   dep=($react)
@@ -223,19 +212,13 @@ setup() {
 
   echo "Installing dependencies..."
   echo ""
-  for pak in "${dep[@]}"
-  do
-    eval "${install_cmd} $(replace_uds $pak)"
-    echo ""
-  done
+  eval "${install_cmd} ${dep[@]}"
+  echo ""
 
   echo "Installing dev dependencies..."
   echo ""
-  for pak in "${dev_dep[@]}"
-  do
-    eval "${install_cmd} -D $(replace_uds $pak)"
-    echo ""
-  done
+  eval "${install_cmd} -D ${dev_dep[@]}"
+  echo ""
 
   echo "Finished installing the dependencies!"
   echo ""
