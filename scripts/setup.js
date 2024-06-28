@@ -24,7 +24,7 @@ if (packageJson.scripts) delete packageJson.scripts;
 if (packageJson.keywords) delete packageJson.keywords;
 
 // Setup scripts
-const build = 'rm -rf dist && NODE_ENV=production webpack';
+const build = 'rm -rf build && NODE_ENV=production webpack';
 const start = 'webpack serve';
 const dev = 'webpack serve --mode development';
 
@@ -34,7 +34,7 @@ packageJson.scripts.start = start;
 packageJson.scripts.dev = dev;
 
 // Merge params passed as arguments to packageJson
-const mergedParams = Object.assign ({}, packageJson, params)
+const mergedParams = Object.assign({}, packageJson, params);
 
 // Overwrite package.json
 fs.writeFileSync(file, JSON.stringify(mergedParams, null, 2));

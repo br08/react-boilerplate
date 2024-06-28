@@ -6,7 +6,7 @@ module.exports = {
   mode: prod ? 'production' : 'development',
   entry: './src/index.js',
   output: {
-    path: __dirname + '/dist/',
+    path: __dirname + '/build/',
     filename: 'bundle.js',
   },
   plugins: [
