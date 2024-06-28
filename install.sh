@@ -187,7 +187,10 @@ set_packages() {
   dep=($react)
 }
 
-setup() {
+main() {
+  choose_package_manager
+  echo ""
+
   set_packages
 
   prompt_typescript
@@ -235,12 +238,6 @@ setup() {
     curl -fsSLO "${file}"
   done
   echo "Done!"
-}
-
-main() {
-  choose_package_manager
-  echo ""
-  setup
 }
 
 # main
