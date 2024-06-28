@@ -94,6 +94,7 @@ n) npm
     echo "Using npm as the default option."
     use_npm
   fi
+  echo ""
 }
 
 prompt_pkg_name() {
@@ -150,6 +151,19 @@ setup_typescript() {
   config_files+=($TEMPLATES_PATH/$dir/$tsconfig)
 }
 
+config_package_json() {
+  echo ""
+  eval "$pakman init -ysf" > /dev/null 2> /dev/null # supress messages from both npm and yarn
+  echo ""
+  
+  if [ -r "package.json" ]
+  then
+    curl -fsSLO $SCRIPTS/setup.js
+    node setup.js --name="$pkg_name" --version="$version" --description="$description" --author="$author" --license="$license" --main="index.$ext"
+    rm setup.js
+  fi
+}
+
 prompt_typescript() {
   prompt="
 Do you wish to use TypeScript? (default \"n\")
@@ -187,32 +201,7 @@ set_packages() {
   dep=($react)
 }
 
-main() {
-  choose_package_manager
-  echo ""
-
-  set_packages
-
-  prompt_typescript
-  prompt_pkg_name
-  prompt_version
-  prompt_description
-  prompt_author
-  prompt_license
-
-  set_templates
-
-  echo ""
-  eval "$pakman init -ysf" > /dev/null 2> /dev/null # supress messages from both npm and yarn
-  echo ""
-
-  if [ -r "package.json" ]
-  then
-    curl -fsSLO $SCRIPTS/setup.js
-    node setup.js --name="$pkg_name" --version="$version" --description="$description" --author="$author" --license="$license" --main="index.$ext"
-    rm setup.js
-  fi
-
+install_dependencies() {
   echo "Installing dependencies..."
   echo ""
   eval "${install_cmd} ${dep[@]}"
@@ -223,9 +212,11 @@ main() {
   eval "${install_cmd} -D ${dev_dep[@]}"
   echo ""
 
-  echo "Finished installing the dependencies!"
+  echo "Finished installing dependencies!"
   echo ""
+}
 
+download_templates() {
   echo "Dowloading templates..."
   for file in "${config_files[@]}"
   do
@@ -237,7 +228,26 @@ main() {
   do
     curl -fsSLO "${file}"
   done
+  echo ""
   echo "Done!"
+}
+
+main() {
+  choose_package_manager
+  set_packages
+
+  prompt_typescript
+  prompt_pkg_name
+  prompt_version
+  prompt_description
+  prompt_author
+  prompt_license
+
+  set_templates
+
+  config_package_json
+  install_dependencies
+  download_templates
 }
 
 # main
