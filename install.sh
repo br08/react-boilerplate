@@ -197,6 +197,17 @@ set_packages() {
   react=("react react-dom")
   typescript=("typescript @types/react @types/react-dom ts-loader")
 
+  eslint=("eslint@^8 eslint-plugin-react eslint-plugin-simple-import-sort")
+  eslint_plugins=("eslint-plugin-import eslint-plugin-n eslint-plugin-promise")
+  eslint_optionals=("eslint-plugin-jsx-a11y eslint-plugin-react-hooks")
+  eslint_typescript=("@typescript-eslint/eslint-plugin @typescript-eslint/parser")
+  eslint_standard=("eslint-config-standard")
+  eslint_standard_ts=("eslint-config-standard-with-typescript")
+  eslint_google=("eslint-config-google")
+  eslint_xo=("eslint-config-xo")
+  eslint_xo_ts=("eslint-config-xo-typescript")
+  eslint_airbnb=("eslint-config-airbnb")
+
   dev_dep=($webpack)
   dep=($react)
 }
