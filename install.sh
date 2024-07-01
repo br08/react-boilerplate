@@ -58,11 +58,17 @@ Do you wish to install Yarn right now? (y/n):
 use_yarn() {
   pakman="yarn"
   install_cmd="yarn add"
+  echo ""
+  echo "Using yarn as the package manager."
+  echo ""
 }
 
 use_npm() {
   pakman="npm"
   install_cmd="npm i"
+  echo ""
+  echo "Using npm as the package manager."
+  echo ""
 }
 
 warn() {
@@ -141,10 +147,16 @@ prompt_license() {
 }
 
 setup_javascript() {
+  echo ""
+  echo "Setting the project up with Javascript."
+  echo ""
   dev_dep+=($babel)
 }
 
 setup_typescript() {
+  echo ""
+  echo "Setting the project up with Typescript."
+  echo ""
   dev_dep+=($typescript)
   dir="typescript"
   ext="tsx"
