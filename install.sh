@@ -194,7 +194,7 @@ n) no
       *) warn "$INVALID_OPTION" "$ERROR" ;;
     esac
   else
-    use_npm
+    setup_javascript
   fi
 }
 
