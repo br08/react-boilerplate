@@ -191,8 +191,46 @@ set_templates() {
   src+=($TEMPLATES_PATH/$dir/index.$ext $TEMPLATES_PATH/$dir/App.$ext)
 }
 
+read_file_into_array() {
+  local filename="$1"
+  local array_name="$2"
+  local content
+
+  # Fetch the file content
+  content=$(curl -s "$RESOURCES/$filename.list")
+
+  # Initialize an empty array
+  eval "declare -a $array_name"
+
+  # Read the content line by line and add each line to the array
+  while IFS= read -r line; do
+    [[ -n "$line" ]] && eval "$array_name+=('$line')"
+    echo "Added line $line"
+  done <<< "$content"
+
+  eval "$2+=($'$array_name')"
+
+  echo "Array name: $2"
+}
+
+read_file_into_string() {
+  local filename="$1"
+  local content
+
+  # Fetch the file content
+  content=$(curl -s "$filename")
+
+  # Remove leading/trailing whitespace and replace newlines with spaces
+  local formatted_content
+  formatted_content=$(echo "$content" | tr -d '\n' | tr -s ' ')
+
+  # Assign the formatted content to the output variable
+  eval "$2='$formatted_content'"
+}
+
 set_packages() {
-  webpack=("webpack webpack-cli webpack-dev-server html-webpack-plugin")
+  read_file_into_array webpack
+
   babel=("@babel/core @babel/plugin-transform-runtime @babel/preset-env @babel/preset-react babel-loader")
   react=("react react-dom")
   typescript=("typescript @types/react @types/react-dom ts-loader")
